@@ -8,8 +8,8 @@ First personal Project after Freshman year.
 
 //TODO:
 
-Restart and Quit Buttons
-Main Menu
+Restart and Quit Buttons \n
+Main Menu \n
 More Obstacles
 
 
