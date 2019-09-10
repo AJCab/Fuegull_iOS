@@ -110,6 +110,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
      Game Object Functions
 ******************************************************************************************************************/
     
+    //Custom wait function
     func waitFor(seconds: Float){
         var num: Float = 0
         repeat{
@@ -117,11 +118,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }while(num < 60*seconds)
         print("Done Waiting")
     }
+    
+    //Controls energy bar by changing the width of the energy bar sprite
     func updateEnergyBar(amount: Float){
         front.size.width = CGFloat(energyBarLength + amount)
         energyBarLength = Float(front.size.width)
     }
     
+    //Controls distance display
     func updateDistanceBar(amount: Int){
         distanceBar.removeFromParent()
         self.addChild(distanceBar)
@@ -129,74 +133,44 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         distanceBar.text = String("\(distance) m")
     }
     
-    
-    func spawnSandwich(xPos: Int, yPos: Int) {
-        //Set range
-       
-        
-        //init
-        let sandwich = SKSpriteNode(color: UIColor(red: 0, green: 0, blue: 100, alpha: 0), size: CGSize(width: 50, height: 50))
-        self.addChild(sandwich)
-        
-        //Position
-        sandwich.position = CGPoint(x: spawnXLocation + xPos, y: yPos)
-        sandwich.zPosition = 3
-        
-        
-        
-        //Physics
-        sandwich.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 50, height: 50))
-        sandwich.physicsBody?.affectedByGravity = false
-        sandwich.physicsBody?.isDynamic = false
-        sandwich.physicsBody?.allowsRotation = false
-        
-        sandwich.physicsBody?.categoryBitMask = BodyType.sandwich.rawValue
-        sandwich.physicsBody?.collisionBitMask = 0
-        sandwich.physicsBody?.contactTestBitMask = BodyType.bird.rawValue
-        
-        
-        //Actions
-        let sandwichMove:SKAction = SKAction.move(to: CGPoint(x: destroyXLocation + xPos, y: yPos), duration: TimeInterval(obstacleSpeedNum))
-        let sandwichDestroy: SKAction = SKAction.removeFromParent()
-        let sandwichSeq: SKAction = SKAction.sequence([sandwichMove, sandwichDestroy])
-        
-        sandwich.run(sandwichSeq)
-        
-        
-    }
-    
-    func spawnPerson(){
-        
-        let person = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "beachPerson")), size: CGSize(width: 50 , height: 100))
-        person.position = CGPoint(x: spawnXLocation, y: -220)
-        
-        self.addChild(person)
-        
-    }
-    
+    /*
+     Spawns a beach chair, umbrella, cooler, and a sanwich in varying positions based on parameter 'selection'
+    */
     func spawnBeachSetupOne(selection: Int){
-        
+        let sandwichPos: CGPoint
+        let sandwichDestroyPos: CGPoint
         //init
         let umbrella = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "umbrella-red")), size: CGSize(width: 150, height: 150))
         let chair = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "beach_chair")), size: CGSize(width: 95 , height: 95))
         let cooler = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "cooler")), size: CGSize(width: 52, height: 52))
+        let sandwich = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "sandwich01")),size: CGSize(width: 40, height: 40))
         
+        //Check what beachSetUp configuration was specified
         if selection == 3{
             umbrella.texture = SKTexture(image: #imageLiteral(resourceName: "umbrella-green"))
+            sandwichPos = CGPoint(x: spawnXLocation, y: -200)
+            sandwichDestroyPos = CGPoint(x: destroyXLocation, y: -200)
         }else if selection == 4 {
             umbrella.texture = SKTexture(image: #imageLiteral(resourceName: "umbrella-red"))
+            sandwichPos = CGPoint(x: spawnXLocation + 97, y: -300)
+            sandwichDestroyPos = CGPoint(x: destroyXLocation + 97, y: -300)
         }else{
             umbrella.texture = SKTexture(image: #imageLiteral(resourceName: "umbrella-pink"))
+            sandwichPos = CGPoint(x: spawnXLocation + 188, y: -275)
+            sandwichDestroyPos = CGPoint(x: destroyXLocation + 188, y: -275)
         }
         
         self.addChild(umbrella)
         self.addChild(chair)
         self.addChild(cooler)
+        self.addChild(sandwich)
         
         //Position
         umbrella.position = CGPoint(x: spawnXLocation, y: -252)
         chair.position = CGPoint(x: spawnXLocation + 97, y: -300)
         cooler.position = CGPoint(x: spawnXLocation + 188, y: -313)
+        sandwich.position = sandwichPos
+        
         
         //Physics
         umbrella.physicsBody = SKPhysicsBody(texture: SKTexture(image: #imageLiteral(resourceName: "umbrella-red-collision")), size: CGSize(width: 150 , height: 150))
@@ -224,6 +198,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         chair.physicsBody?.contactTestBitMask = 0
         cooler.physicsBody?.contactTestBitMask = BodyType.bird.rawValue
         
+        sandwich.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 50, height: 50))
+        sandwich.physicsBody?.affectedByGravity = false
+        sandwich.physicsBody?.isDynamic = false
+        sandwich.physicsBody?.allowsRotation = false
+        
+        sandwich.physicsBody?.categoryBitMask = BodyType.sandwich.rawValue
+        sandwich.physicsBody?.collisionBitMask = 0
+        sandwich.physicsBody?.contactTestBitMask = BodyType.bird.rawValue
+        
         //Actions
         let umbrellaMove:SKAction = SKAction.move(to: CGPoint(x: destroyXLocation, y: -252), duration: TimeInterval(obstacleSpeedNum))
         let chairMove:SKAction = SKAction.move(to: CGPoint(x: destroyXLocation + 97, y: -300), duration: TimeInterval(obstacleSpeedNum))
@@ -232,16 +215,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let umbrellaMoveSeq: SKAction = SKAction.sequence([umbrellaMove, Destroy])
         let chairMoveSeq: SKAction = SKAction.sequence([chairMove, Destroy])
         let coolerMoveSeq: SKAction = SKAction.sequence([coolerMove, Destroy])
+        let sandwichMove:SKAction = SKAction.move(to: sandwichDestroyPos, duration: TimeInterval(obstacleSpeedNum))
+        let sandwichDestroy: SKAction = SKAction.removeFromParent()
+        let sandwichSeq: SKAction = SKAction.sequence([sandwichMove, sandwichDestroy])
         
-        
+        //Run animations
         umbrella.run(umbrellaMoveSeq)
         chair.run(chairMoveSeq)
         cooler.run(coolerMoveSeq)
-        spawnSandwich(xPos: 188, yPos: -290)
+        sandwich.run(sandwichSeq)
+        
         
     }
     
-    
+    //Spawns a Lifeguard Tower. This will kill the seagull
     func spawnLifeGuardTower(){
         //init
         let tower = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "lifeguardtower")), size: CGSize(width: 120, height: 250))
@@ -269,40 +256,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         tower.run(towerSeq)
         
     }
-    /*
+    
+    //TODO: Retry and Quit Screen. Currently stops the app when you die
     func diedScreen() {
         
         //init
         let back = SKSpriteNode(color: UIColor.cyan, size: CGSize(width: 700, height: 300))
-        let diedText = SKLabelNode(text: "You Died!")
-        let retryBox = SKSpriteNode(color: UIColor.black, size: CGSize(width: 160, height: 100))
-        let retryText = SKLabelNode(text: "Retry")
-        let quitBox = SKSpriteNode(color: UIColor.black, size: CGSize(width: 160, height: 100))
-        let quitText = SKLabelNode(text: "Quit")
-        diedText.color = UIColor.black
-        diedText.fontSize = 70
-        retryText.color = UIColor.white
-        retryText.fontSize = 50
-        quitText.color = UIColor.white
-        quitText.fontSize = 50
+        //let diedText = SKLabelNode(text: "You Died!")
+        //let retryBox = SKSpriteNode(color: UIColor.black, size: CGSize(width: 160, height: 100))
+        //let retryText = SKLabelNode(text: "Retry")
+        //let quitBox = SKSpriteNode(color: UIColor.black, size: CGSize(width: 160, height: 100))
+        //let quitText = SKLabelNode(text: "Quit")
+        //diedText.color = UIColor.black
+        //diedText.fontSize = 70
+        //retryText.color = UIColor.white
+        //retryText.fontSize = 50
+        //quitText.color = UIColor.white
+        //quitText.fontSize = 50
         
-        retryBox.name = String("retryBox")
+        //retryBox.name = String("retryBox")
         
         
         self.addChild(back)
-        self.addChild(diedText)
-        self.addChild(retryBox)
-        self.addChild(retryText)
-        self.addChild(quitBox)
-        self.addChild(quitText)
+        //self.addChild(diedText)
+        //self.addChild(retryBox)
+        //self.addChild(retryText)
+        //self.addChild(quitBox)
+        //self.addChild(quitText)
         
         //Positions
         back.position = CGPoint(x: 0, y: 20)
-        diedText.position = CGPoint(x: 0, y: 100)
-        retryBox.position = CGPoint(x: -130, y: 20)
-        retryText.position = CGPoint(x: -130, y: 10)
-        quitBox.position = CGPoint(x: 130, y: 10)
-        quitText.position = CGPoint(x: 130, y: 10)
+        //diedText.position = CGPoint(x: 0, y: 100)
+        //retryBox.position = CGPoint(x: -130, y: 20)
+        //retryText.position = CGPoint(x: -130, y: 10)
+        //quitBox.position = CGPoint(x: 130, y: 10)
+        //quitText.position = CGPoint(x: 130, y: 10)
         
         //More Stuff
         back.alpha = 0.8
@@ -310,11 +298,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let fadeIn = SKAction.fadeIn(withDuration: 3)
         
         back.run(fadeIn)
-        diedText.run(fadeIn)
-        retryBox.run(fadeIn)
-        retryText.run(fadeIn)
-        quitBox.run(fadeIn)
-        quitText.run(fadeIn)
+        //diedText.run(fadeIn)
+        //retryBox.run(fadeIn)
+        //retryText.run(fadeIn)
+        //quitBox.run(fadeIn)
+        //quitText.run(fadeIn)
         
         //let scene = PlayScene
         waitFor(seconds: 3)
@@ -338,7 +326,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
     }
-    */
+    
     func scoreBoard(){
         let score = SKLabelNode(text: "Score \(self.score)")
         self.addChild(score)
@@ -453,17 +441,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.removeAllActions()
             self.removeAllChildren()
             waitFor(seconds: 3)
-            let scene = GameScene(size: self.size) // Whichever scene you want to restart (and are in)
-            let animation = SKTransition.crossFade(withDuration: 0.5) // ...Add transition if you like
-            self.view?.presentScene(scene, transition: animation)
-            distanceBar.removeFromParent()
             Seagull.removeFromParent()
-            distanceBar.position = CGPoint(x:-1000, y: 280)
+            //distanceBar.position = CGPoint(x:-1000, y: 280)
             let diedText = SKLabelNode(text: "You Died!")
             self.addChild(diedText)
             diedText.position = CGPoint(x: 0, y: 100)
-            back.removeFromParent()
-            front.removeFromParent()
+            //back.removeFromParent()
+            //front.removeFromParent()
+            waitFor(seconds: 5)
+            exit(0)
         }
         updateEnergyBar(amount: -0.1)
         
@@ -495,9 +481,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 case 1:
                     spawnLifeGuardTower()
                 case 0:
-                    spawnBeachSetupOne(selection: 3)
+                    spawnBeachSetupOne(selection: 4)
                 default:
-                    spawnPerson()
+                    spawnBeachSetupOne(selection: Int(selection))
                 }
         selection = 0
         }
@@ -560,22 +546,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             dead = true
             
             waitFor(seconds: 3)
-            self.removeAllActions()
-            self.removeAllChildren()
-            self.removeFromParent()
-            distanceBar.position = CGPoint(x: -1000, y: 280)
-            back.removeFromParent()
-            front.removeFromParent()
+            //self.removeAllActions()
+            //self.removeAllChildren()
+            //self.removeFromParent()
+            //distanceBar.position = CGPoint(x: -1000, y: 280)
+            //back.removeFromParent()
+            //front.removeFromParent()
             let diedText = SKLabelNode(text: "You Died!")
             self.addChild(diedText)
             diedText.position = CGPoint(x: 0, y: 100)
-            self.addChild(front)
-            self.addChild(distanceBar)
-            self.addChild(Seagull)
+        
             
-            waitFor(seconds: 3)
-            let scene = GameScene(size: self.size) // Whichever scene you want to restart (and are in)
-            self.view?.presentScene(scene)
+            waitFor(seconds: 5)
+            exit(0)
             
             
             
