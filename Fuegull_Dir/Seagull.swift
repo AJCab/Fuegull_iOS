@@ -10,7 +10,14 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
+class seagull{
+    
+    var bird: SKSpriteNode
+    
+    init(){
+        bird = SKSpriteNode()
+        bird.size.width = 70
+        bird.size.height = 70
+    }
+}
 
-let umbrellaPink = SKTexture(image: #imageLiteral(resourceName: "umbrella-pink"))
-let umbrellaRed = SKTexture(image: #imageLiteral(resourceName: "umbrella-red"))
-let umbrellGreen = SKTexture(image: #imageLiteral(resourceName: "umbrella-green"))
