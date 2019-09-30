@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		661741EE234192B8000CD0DA /* BeachSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661741ED234192B8000CD0DA /* BeachSetup.swift */; };
 		662779BF2121324D009F48C0 /* Seagull.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662779BE2121324C009F48C0 /* Seagull.swift */; };
 		66DF74EB211E4FA6002C5982 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DF74EA211E4FA6002C5982 /* AppDelegate.swift */; };
 		66DF74ED211E4FA6002C5982 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 66DF74EC211E4FA6002C5982 /* GameScene.sks */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		661741ED234192B8000CD0DA /* BeachSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeachSetup.swift; sourceTree = "<group>"; };
 		662779BE2121324C009F48C0 /* Seagull.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seagull.swift; sourceTree = "<group>"; };
 		66DF74E7211E4FA6002C5982 /* Fuegull.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fuegull.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66DF74EA211E4FA6002C5982 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +47,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		661741EB2341927A000CD0DA /* GameObjects */ = {
+			isa = PBXGroup;
+			children = (
+				662779BE2121324C009F48C0 /* Seagull.swift */,
+				661741ED234192B8000CD0DA /* BeachSetup.swift */,
+			);
+			path = GameObjects;
+			sourceTree = "<group>";
+		};
 		66DF74DE211E4FA6002C5982 = {
 			isa = PBXGroup;
 			children = (
@@ -64,11 +75,11 @@
 		66DF74E9211E4FA6002C5982 /* Fuegull */ = {
 			isa = PBXGroup;
 			children = (
+				661741EB2341927A000CD0DA /* GameObjects */,
 				66DF74EA211E4FA6002C5982 /* AppDelegate.swift */,
 				66DF74EE211E4FA6002C5982 /* Actions.sks */,
 				66DF74EC211E4FA6002C5982 /* GameScene.sks */,
 				66DF74F0211E4FA6002C5982 /* GameScene.swift */,
-				662779BE2121324C009F48C0 /* Seagull.swift */,
 				66DF74F2211E4FA6002C5982 /* GameViewController.swift */,
 				66DF74F4211E4FA6002C5982 /* Main.storyboard */,
 				66EC41F32124FD9700636264 /* birdAnimations.atlas */,
@@ -155,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				662779BF2121324D009F48C0 /* Seagull.swift in Sources */,
+				661741EE234192B8000CD0DA /* BeachSetup.swift in Sources */,
 				66DF74F1211E4FA6002C5982 /* GameScene.swift in Sources */,
 				66DF74F3211E4FA6002C5982 /* GameViewController.swift in Sources */,
 				66DF74EB211E4FA6002C5982 /* AppDelegate.swift in Sources */,
