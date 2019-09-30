@@ -95,14 +95,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         distanceBar.fontSize = 50
         distanceBar.fontColor = UIColor.white
         distanceBar.zPosition = 10000
-        
-        
-        
-        
-       
-        
-        
-        
+
     }
     
 
@@ -132,7 +125,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         distance += amount
         distanceBar.text = String("\(distance) m")
     }
-    
+   
+    /*
     /*
      Spawns a beach chair, umbrella, cooler, and a sanwich in varying positions based on parameter 'selection'
     */
@@ -227,7 +221,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
     }
-    
+ */
     //Spawns a Lifeguard Tower. This will kill the seagull
     func spawnLifeGuardTower(){
         //init
@@ -468,8 +462,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             print(" ")
             
         }
-        var selection = arc4random_uniform(3)
+        
+        //var selection = arc4random_uniform(3)
         if timer .truncatingRemainder(dividingBy: spawnOccurence) == 0 {
+            let setup1 = beachSetup()
+            setup1.spawnBeachSetup()
+            /*
                 print(selection)
                 switch (selection) {
                 case 4:
@@ -484,8 +482,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     spawnBeachSetupOne(selection: 4)
                 default:
                     spawnBeachSetupOne(selection: Int(selection))
-                }
-        selection = 0
+ 
+                }*/
+        //selection = 0
         }
         
         

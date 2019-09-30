@@ -10,14 +10,21 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-class beachSetup{
+class beachSetup: SKSpriteNode{
     var setupNum: UInt32
     var spawnXLocation = 750
     var destroyXLocation = -900
     var obstacleSpeedNum: Float = 10
     
+    
+    
+    
     init(){
         setupNum = arc4random_uniform(3)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     
@@ -27,6 +34,13 @@ class beachSetup{
     func spawnBeachSetup(){
         let sandwichPos: CGPoint
         let sandwichDestroyPos: CGPoint
+        
+        guard let gameScene = self.parent as? GameScene else{
+        print("Error finding gamescene")
+            return
+        }
+        
+        
         //init
         let umbrella = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "umbrella-red")), size: CGSize(width: 150, height: 150))
         let chair = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "beach_chair")), size: CGSize(width: 95 , height: 95))
@@ -48,10 +62,10 @@ class beachSetup{
             sandwichDestroyPos = CGPoint(x: destroyXLocation + 188, y: -275)
         }
         
-        self.addChild(umbrella)
-        self.addChild(chair)
-        self.addChild(cooler)
-        self.addChild(sandwich)
+        gameScene.addChild(umbrella)
+        gameScene.addChild(chair)
+        gameScene.addChild(cooler)
+        gameScene.addChild(sandwich)
         
         //Position
         umbrella.position = CGPoint(x: spawnXLocation, y: -252)
@@ -113,7 +127,7 @@ class beachSetup{
         cooler.run(coolerMoveSeq)
         sandwich.run(sandwichSeq)
         
-        
+        return
     }
 }
 
