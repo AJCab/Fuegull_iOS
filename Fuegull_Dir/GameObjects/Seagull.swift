@@ -9,11 +9,11 @@
 import Foundation
 import SpriteKit
 import GameplayKit
-
+/*
 class seagull: SKSpriteNode{
     
     public var bird: SKSpriteNode //Seagull Sprite Node
-    public var dead: Bool //Denotes whether the bird is dead or not
+    //public var dead: Bool //Denotes whether the bird is dead or not
     var rotateSpeed = 0.8
     var flySpeed = 7
     var fallSpeed = 9
@@ -38,9 +38,9 @@ class seagull: SKSpriteNode{
         
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    
+    
+    
     
     public func flyUp(){
         
@@ -86,3 +86,4 @@ class seagull: SKSpriteNode{
         
 }
 
+*/

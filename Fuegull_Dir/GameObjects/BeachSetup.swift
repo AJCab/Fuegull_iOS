@@ -18,10 +18,10 @@ class beachSetup: SKSpriteNode{
     
     
     
-    
-    init(){
-        setupNum = arc4random_uniform(3)
+    convenience init(){
+        self.init()
     }
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
