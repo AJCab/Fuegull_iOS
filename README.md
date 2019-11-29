@@ -10,6 +10,7 @@ First personal Project after Freshman year.
 
 //TODO:
 
+-Performance optimizations
 -Restart and Quit Buttons
 -Main Menu
 -Saving score
