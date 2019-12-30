@@ -16,7 +16,7 @@ First personal Project after Freshman year.
 -Saving score
 
 
-![Fuegull Launch Screen](/images/fuegull_pic.png)
+![Fuegull Launch Screen](./images/fuegull_pic.png =100x50)
 
 ![Fuegull Video Gif](/images/fuegull_vid.gif)
 
