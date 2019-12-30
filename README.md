@@ -18,3 +18,6 @@ First personal Project after Freshman year.
 
 
 
+![alt text](/images/fuegull_pic.gif)
+
+![alt text](/images/fuegull_pic.png)
