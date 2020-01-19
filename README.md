@@ -6,12 +6,12 @@ iOS Mobile Game where the user plays as a Seagull on a beach, attempting to stea
 
 
 
-//TODO: \n
+//TODO: 
 
--Performance optimizations
--Restart and Quit Buttons
--Main Menu
--Saving score
+- Performance optimizations
+- Restart and Quit Buttons
+- Main Menu
+- Saving score
 
 ![Fuegull Video Gif](/images/fuegull_vid.gif)
 
